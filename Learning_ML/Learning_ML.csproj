@@ -43,6 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NetworkCore\INetwork.cs" />
+    <Compile Include="NetworkCore\Layer.cs" />
+    <Compile Include="NetworkCore\Network.cs" />
+    <Compile Include="NetworkCore\Node.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
