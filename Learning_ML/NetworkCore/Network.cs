@@ -99,9 +99,29 @@ namespace Learning_ML.NetworkCore
                 {
                     for (int j = layers[i].nodes.Count - 1; j >= 0; j--)
                     {
-                        double outResutlt = layers[i].nodes[j].sum;
-                        double q = (result - outResutlt) * outResutlt * (1 - outResutlt);
-                        layers[i].nodes[j].errorValue = q;
+                        //double outResutlt = layers[i].nodes[j].sum;
+                        //double q = (result - outResutlt) * outResutlt * (1 - outResutlt);
+                        //layers[i].nodes[j].errorValue = q;
+
+                        if (i == layers.Count - 1)
+                        {
+                            double outResutlt = layers[i].nodes[j].sum;
+                            double q = (result - outResutlt) * outResutlt * (1 - outResutlt);
+                            layers[i].nodes[j].errorValue = q;
+                        }
+                        else
+                        {
+                            double outResutlt = layers[i].nodes[j].sum;
+
+                            double q = outResutlt * (1 - outResutlt);
+                            double tmpW = 0;
+                            foreach (var item in layers[i].nodes[j].weight)
+                            {
+                                tmpW += item * layers[i].nodes[j].errorValue;
+                            }
+                            q *= tmpW;
+                            layers[i].nodes[j].errorValue = q;
+                        }
                     }
                 }
 
@@ -112,7 +132,7 @@ namespace Learning_ML.NetworkCore
         public double Test()
         {
             Network testNetwork = this;
-
+            
             for (int i = 0; i < testNetwork.layers.Count - 1; i++)
             {
                 for (int j = 0; j < testNetwork.layers[i].nodes.Count; j++)
